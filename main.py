@@ -23,6 +23,20 @@ from database import engine, get_db, get_readonly_db
 
 models.Base.metadata.create_all(bind=engine)
 
+# Auto-seed database if empty on startup
+try:
+    with engine.begin() as connection:
+        # Check if database has any seeded data in territories
+        res = connection.execute(text("SELECT COUNT(*) FROM territories")).scalar()
+        if res == 0:
+            print("Database is empty. Seeding AdventureWorks dataset...")
+            with open("init_db.sql", "r") as f:
+                sql_content = f.read()
+                connection.execute(text(sql_content))
+            print("Database seeded successfully!")
+except Exception as e:
+    print(f"Database auto-seeding bypassed/failed: {e}")
+
 app = FastAPI(title="BI Assistant API")
 
 app.add_middleware(
