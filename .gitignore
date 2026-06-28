@@ -1,0 +1,7 @@
+.env
+*.log
+*.bak
+__pycache__/
+*.pyc
+.DS_Store
+.streamlit/config.toml

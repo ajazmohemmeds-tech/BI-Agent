@@ -1,0 +1,430 @@
+/* Import a modern font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+/* Base typography */
+html, body, [class*="css"], p, span, div, label, li, h1, h2, h3, h4, h5, h6, .stMarkdown, .stText {
+    font-family: 'Inter', sans-serif !important;
+    color: #0f172a !important;
+}
+
+/* Main App Background (Light, sleek, grayish-blue gradient) */
+.stApp {
+    background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+    background-color: #cbd5e1;
+    background-attachment: fixed;
+}
+
+
+/* ChatGPT Style Sidebar */
+[data-testid="stSidebar"] {
+    background-color: #000000 !important;
+    border-right: 1px solid #333 !important;
+}
+
+/* Hide Streamlit Deploy Button */
+.stDeployButton,
+[data-testid="stAppDeployButton"] {
+    display: none !important;
+}
+
+/* Custom Query Popover */
+.custom-query-popover {
+    position: fixed !important;
+    top: 0.5rem !important;
+    right: 1.5rem !important;
+    z-index: 999999 !important;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.custom-query-popover .query-icon {
+    padding: 0.5rem;
+    transition: color 0.2s;
+}
+.custom-query-popover:hover .query-icon {
+    color: #3b82f6;
+}
+.custom-query-popover .query-tooltip {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    width: 250px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    color: #e2e8f0;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    z-index: 999999;
+}
+.custom-query-popover:hover .query-tooltip {
+    display: block;
+}
+
+/* Brutally Hide Streamlit's Native Icon Text */
+[data-testid="stSidebarHeader"] button *,
+[data-testid="collapsedControl"] button *,
+[data-testid="stSidebarCollapseButton"] *,
+[data-testid="collapsedControl"] span {
+    font-size: 0 !important;
+    color: transparent !important;
+    display: none !important;
+}
+
+/* Force our SVG as a background image on all possible Streamlit sidebar toggles */
+[data-testid="stSidebarHeader"] button,
+[data-testid="collapsedControl"] button,
+[data-testid="stSidebarCollapseButton"],
+[data-testid="collapsedControl"] {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyNCcgaGVpZ2h0PScyNCcgdmlld0JveD0nMCAwIDI0IDI0JyBmaWxsPSdub25lJyBzdHJva2U9J3doaXRlJyBzdHJva2Utd2lkdGg9JzInIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCc+PHJlY3QgeD0nMycgeT0nMycgd2lkdGg9JzE4JyBoZWlnaHQ9JzE4JyByeD0nMicgcnk9JzInPjwvcmVjdD48bGluZSB4MT0nOScgeTE9JzMnIHgyPSc5JyB5Mj0nMjEnPjwvbGluZT48L3N2Zz4=") !important;
+    background-size: 24px 24px !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-color: transparent !important;
+    border: none !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    display: flex !important;
+}
+
+/* Custom Tooltips for Injected Sidebar Icons */
+.custom-sidebar-open-btn,
+.custom-sidebar-close-btn {
+    position: relative !important;
+    overflow: visible !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+}
+
+.custom-sidebar-open-btn svg,
+.custom-sidebar-close-btn svg {
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.custom-sidebar-open-btn::after {
+    content: "Open sidebar";
+    position: absolute;
+    left: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+    border: 1px solid #333;
+    z-index: 999999;
+}
+.custom-sidebar-open-btn:hover::after {
+    opacity: 1;
+}
+
+.custom-sidebar-close-btn::after {
+    content: "Close sidebar";
+    position: absolute;
+    right: 45px;
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+    border: 1px solid #333;
+    z-index: 999999;
+}
+.custom-sidebar-close-btn:hover::after {
+    opacity: 1;
+}
+
+[data-testid="stSidebar"] h1, 
+[data-testid="stSidebar"] h2, 
+[data-testid="stSidebar"] h3, 
+[data-testid="stSidebar"] h4, 
+[data-testid="stSidebar"] p, 
+[data-testid="stSidebar"] span, 
+[data-testid="stSidebar"] label {
+    color: #ececec !important;
+}
+
+/* Sidebar "Recents" Header */
+[data-testid="stSidebar"] h3 {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin-bottom: 0px !important;
+}
+
+/* Sidebar Buttons (Flat list style) */
+[data-testid="stSidebar"] .stButton > button {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #ececec !important;
+    text-align: left !important;
+    justify-content: flex-start !important;
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+    width: 100% !important;
+}
+
+[data-testid="stSidebar"] .stButton > button:hover {
+    background-color: #202123 !important;
+    color: #ffffff !important;
+    transform: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+[data-testid="stSidebar"] .stButton > button:active {
+    transform: scale(0.98) !important;
+}
+
+/* Override the nav pill in the sidebar so it doesn't look like a bubble */
+[data-testid="stSidebar"] .stRadio > div[role="radiogroup"] {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: flex;
+    flex-direction: column !important;
+    width: 100% !important;
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+}
+
+[data-testid="stSidebar"] .stRadio > div[role="radiogroup"] label {
+    background: transparent !important;
+    border: none !important;
+    color: #ececec !important;
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+    font-weight: 400 !important;
+    width: 100% !important;
+    transition: background-color 0.2s ease;
+}
+
+[data-testid="stSidebar"] .stRadio > div[role="radiogroup"] label:hover {
+    background-color: #202123 !important;
+}
+
+/* Make the active radio button lighter */
+[data-testid="stSidebar"] .stRadio div[data-testid="stMarkdownContainer"] p {
+    font-size: 14px !important;
+}
+
+[data-testid="stSidebar"] hr {
+    border-color: #333 !important;
+    margin: 10px 0 !important;
+}
+
+/* Metric Cards & Generic Glass Containers */
+[data-testid="stMetric"], .stDataFrame {
+    background: rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    border-radius: 24px !important;
+    padding: 20px !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Enhanced hover for metric cards, dataframes, and charts */
+[data-testid="stMetric"]:hover, .stDataFrame:hover, [data-testid="stPlotlyChart"]:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08) !important;
+    border-color: rgba(255, 255, 255, 1) !important;
+    z-index: 10;
+}
+
+
+/* Dataframe / Element Toolbar Custom High-Contrast Styling */
+[data-testid="stElementToolbar"] {
+    background-color: #ffffff !important;
+    border: 1px solid #cccccc !important;
+    border-radius: 8px !important;
+    padding: 2px 4px !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+}
+
+[data-testid="stElementToolbar"] button {
+    background: transparent !important;
+    border: none !important;
+    color: #000000 !important;
+}
+
+[data-testid="stElementToolbar"] button:hover {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-testid="stElementToolbar"] svg,
+[data-testid="stElementToolbar"] button,
+[data-testid="stElementToolbar"] svg * {
+    color: #000000 !important;
+    stroke: #000000 !important;
+}
+
+/* Text Inputs Glass Effect */
+.stTextInput > div > div, .stTextInput > div > div > input {
+    background-color: transparent !important;
+    background: rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    border-radius: 16px !important;
+    color: #0f172a !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.stTextInput > div > div:focus-within {
+    border: 1px solid rgba(255, 255, 255, 1) !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Button Glass Effect (for normal buttons) */
+.stButton > button {
+    background: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    border-radius: 20px !important;
+    color: #0f172a !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+}
+
+.stButton > button:hover {
+    background: rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 1) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Style the top horizontal radio button container as a nav pill */
+.stRadio > div[role="radiogroup"] {
+    display: flex;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 30px;
+    padding: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Headers */
+h1, h2, h3 {
+    font-weight: 600 !important;
+    letter-spacing: -0.5px;
+    color: #1e293b !important;
+}
+
+/* Hide Streamlit branding */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+
+/* --- INTERACTIVE ANIMATIONS --- */
+
+@keyframes slideUpFadeIn {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dropDownFadeIn {
+    0% { opacity: 0; transform: translateY(-30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.8); }
+    70% { box-shadow: 0 0 0 12px rgba(255, 255, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+/* Apply cascading load animation to main blocks */
+[data-testid="stVerticalBlock"] > [style*="flex-direction: column;"] > div {
+    animation: slideUpFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Nav Pill Entrance */
+.stRadio > div[role="radiogroup"] {
+    animation: dropDownFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Enhanced Button Interactions */
+.stButton > button:hover {
+    transform: translateY(-2px);
+    animation: pulseGlow 1.5s infinite;
+}
+.stButton > button:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+/* Add smooth transitions to charts */
+[data-testid="stPlotlyChart"] {
+    transition: all 0.3s ease;
+    border-radius: 24px;
+    border: 1px solid transparent;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+    /* Stack navigation buttons if screen is too narrow */
+    .stRadio > div[role="radiogroup"] {
+        flex-wrap: wrap !important;
+        width: 100% !important;
+        border-radius: 16px !important;
+        padding: 5px !important;
+    }
+    
+    /* Make buttons and labels smaller inside the nav pill */
+    .stRadio > div[role="radiogroup"] label {
+        padding: 5px 10px !important;
+        font-size: 14px !important;
+    }
+    
+    /* Reduce padding on glass cards */
+    [data-testid="stMetric"], .stDataFrame {
+        padding: 15px !important;
+        border-radius: 16px !important;
+    }
+    
+    /* Scale down headers */
+    h1 { font-size: 28px !important; }
+    h2 { font-size: 24px !important; }
+    h3 { font-size: 20px !important; }
+    
+    /* Ensure chat input fits nicely */
+    .stChatInputContainer {
+        padding-bottom: 20px !important;
+    }
+}

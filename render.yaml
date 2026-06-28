@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: bi-backend
+    env: python
+    buildCommand: "pip install -r requirements-backend.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: POSTGRES_USER
+        value: bi_user
+      - key: POSTGRES_PASSWORD
+        value: bi_password
+      - key: POSTGRES_DB
+        value: bi_db
+      - key: POSTGRES_HOST
+        fromDatabase:
+          name: bi-db
+          property: host
+      - key: OPENAI_API_KEY
+        sync: false
+        
+  - type: web
+    name: bi-frontend
+    env: python
+    buildCommand: "pip install -r requirements-frontend.txt"
+    startCommand: "streamlit run app.py --server.port $PORT --server.address 0.0.0.0"
+    envVars:
+      - key: BACKEND_URL
+        fromService:
+          type: web
+          name: bi-backend
+          property: host
+
+databases:
+  - name: bi-db
+    databaseName: bi_db
+    user: bi_user

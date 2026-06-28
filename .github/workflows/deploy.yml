@@ -1,0 +1,39 @@
+name: Deploy to Render
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements-backend.txt
+
+      - name: Basic Health Check Test
+        run: |
+          # A simple test to ensure the backend module loads without syntax errors
+          python -c "import main; print('Backend loaded successfully')"
+
+      - name: Deploy to Render
+        if: success()
+        env:
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$deploy_url" ]; then
+            echo "RENDER_DEPLOY_HOOK_URL is not set. Skipping deployment."
+          else
+            curl -X POST "$deploy_url"
+          fi
