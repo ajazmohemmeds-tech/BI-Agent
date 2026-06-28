@@ -25,15 +25,19 @@ models.Base.metadata.create_all(bind=engine)
 
 # Auto-seed database if empty on startup
 try:
-    with engine.begin() as connection:
-        # Check if database has any seeded data in territories
+    with engine.connect() as connection:
         res = connection.execute(text("SELECT COUNT(*) FROM territories")).scalar()
         if res == 0:
             print("Database is empty. Seeding AdventureWorks dataset...")
-            with open("init_db.sql", "r") as f:
-                sql_content = f.read()
-                connection.execute(text(sql_content))
-            print("Database seeded successfully!")
+            raw_conn = engine.raw_connection()
+            try:
+                cursor = raw_conn.cursor()
+                with open("init_db.sql", "r") as f:
+                    cursor.execute(f.read())
+                raw_conn.commit()
+                print("Database seeded successfully!")
+            finally:
+                raw_conn.close()
 except Exception as e:
     print(f"Database auto-seeding bypassed/failed: {e}")
 
