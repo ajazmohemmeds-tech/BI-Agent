@@ -11,6 +11,8 @@ services:
           property: connectionURI
       - key: OPENAI_API_KEY
         sync: false
+      - key: PYTHON_VERSION
+        value: 3.11.0
         
   - type: web
     name: bi-frontend
@@ -23,3 +25,5 @@ services:
           type: web
           name: bi-backend
           property: host
+      - key: PYTHON_VERSION
+        value: 3.11.0
